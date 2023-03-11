@@ -1,23 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import Banner from './components/Banner';
+import Header from './components/Header';
+import Body from './components/Body';
+import Footer from './components/Footer';
 
 function App() {
+
+  const arreglo = ['Anakin Skywalker', 'Luke Skywalker', 'Darth Maul', 'Darth Vader', 'Obi-Wan Kenobi',];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Banner texto='Star Wars' />
+      <Header />
+      <Banner texto='Characters' />
+      <Body texto='List' arreglo={arreglo} />
+      <Footer>
+        <p>Copyright 2023 by Equipo 19 Programación Web.</p>
+      </Footer>
     </div>
   );
 }

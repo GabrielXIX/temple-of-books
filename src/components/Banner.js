@@ -4,15 +4,17 @@ import PropTypes from 'prop-types';
 class Banner extends Component {
     render() {
 
-        const {text} = this.props;
+        const {texto} = this.props;
 
         return (
-            <div>{text}</div>
+            <h1 className='Banner'>{texto}</h1>
         )
     }
 }
 
-Banner.PropTypes = {
+Banner.propTypes = {
 
-    texto: PropTypes.array
+    texto: PropTypes.string.isRequired
 }
+
+export default Banner;
