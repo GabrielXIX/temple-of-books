@@ -17,6 +17,9 @@ export const GlobalStyles = createGlobalStyle`
         border: none;
 
         cursor: pointer;
+        background-color: transparent;
+        font-size: 1rem;
+        padding: 0.5rem;
     }
 
     a {
@@ -34,5 +37,10 @@ export const GlobalStyles = createGlobalStyle`
         &:focus {
             outline: 1px #ddd solid;
         }
+    }
+
+    h2 {
+        margin: 0 0 0 2rem;
+        /* line-height: 1; */
     }
 `;

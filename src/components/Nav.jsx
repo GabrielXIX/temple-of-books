@@ -1,37 +1,25 @@
-import { useState } from "react";
-
-import { StyledNav } from "../styles/Nav.style";
+import logo from "../assets/logo.png";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
-export default function Nav({ searchBook }) {
-  const [searchValue, setSearchValue] = useState("");
+import { StyledNav } from "../styles/Nav.style";
 
-  function handleInputChange(event) {
-    setSearchValue(event.target.value);
-  }
-
+export default function Nav() {
   return (
     <header>
       <StyledNav>
         <div>
-          <FontAwesomeIcon icon={faBook} />
+          <button>
+            <Link to="/">
+              <img src={logo} alt="Logo Image" height="30px" />
+            </Link>
+          </button>
           <div>
-            <input
-              type="text"
-              value={searchValue}
-              onChange={handleInputChange}
-              placeholder="Buscar Libro"
-            />
-            <button
-              onClick={() => searchBook(searchValue)}
-              disabled={searchValue === ""}
-            >
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
+            <Link to="/explore">Explorar</Link>
+            <Link to="/reviews">Reseñas</Link>
+            <Link to="/bookshelf">Mis Libros</Link>
           </div>
         </div>
         <div>

@@ -4,19 +4,27 @@ export const StyledBookCard = styled.div`
   display: flex;
   background-color: #f8f8f8;
   gap: 1rem;
-  height: 11.5rem;
+
+  ${(props) =>
+    props.is_large === "true"
+      ? "height: 11.5rem;"
+      : "height: 3rem; white-space: nowrap;"};
 
   border-radius: 8px;
   overflow: hidden;
+  transition: background-color 0.2s;
 
   box-shadow: 0 0 5px #e3e3e3;
+  &:hover {
+    background-color: #f0f0f0;
+  }
 
-  & > div {
+  & > div:first-child {
     width: 8rem;
 
-    & > img {
+    img {
       object-fit: cover;
-      width: 100%;
+      width: 8rem;
       height: 100%;
       border-bottom-left-radius: 8px;
       border-top-left-radius: 8px;
