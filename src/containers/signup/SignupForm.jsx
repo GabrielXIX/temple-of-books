@@ -24,7 +24,6 @@ export default function SignupForm() {
         email: email,
         password: password,
         bookshelf: [],
-        recently_viewed: [],
       });
 
       auth.login(username);
@@ -44,10 +43,10 @@ export default function SignupForm() {
           <h3>Registrarse</h3>
           <div>
             <input type="text" placeholder="Nombre" {...register("name", { required: true, maxLength: 50 })} />
-            <input type="text" placeholder="Correo Electrónico" {...register("username", { required: true, maxLength: 50 })} />
+            <input type="text" placeholder="Correo Electrónico" {...register("email", { required: true, maxLength: 50 })} />
           </div>
           <div>
-            <input type="text" placeholder="Nombre de Usuario" {...register("email", { required: true, maxLength: 50 })} />
+            <input type="text" placeholder="Nombre de Usuario" {...register("username", { required: true, maxLength: 50 })} />
             <input type="password" placeholder="Contraseña" {...register("password", { required: true, maxLength: 50 })} />
           </div>
           <button className="mainBtn" type="submit">
