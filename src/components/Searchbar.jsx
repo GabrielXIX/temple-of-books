@@ -4,22 +4,22 @@ import { useState } from "react";
 
 import { StyledSearchbar } from "../styles/Searchbar.style";
 
-export default function Searchbar({ search, type }) {
-  const [searchValue, setSearchValue] = useState("");
+export default function Searchbar({ type, searchBooks }) {
+  const [inputState, setInputState] = useState("");
 
-  function handleInputChange(event) {
-    setSearchValue(event.target.value);
+  function handleChange(event) {
+    setInputState(event.target.value);
   }
 
   return (
     <StyledSearchbar>
       <input
         type="text"
-        value={searchValue}
-        onChange={handleInputChange}
+        value={inputState}
+        onChange={e => handleChange(e)}
         placeholder={(type === "books" && "Buscar Libros/Autor") || (type === "reviews" && "Buscar Libros con Reseña")}
       />
-      <button onClick={() => search(searchValue)} disabled={searchValue === ""}>
+      <button onClick={() => searchBooks(inputState)}>
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </button>
     </StyledSearchbar>

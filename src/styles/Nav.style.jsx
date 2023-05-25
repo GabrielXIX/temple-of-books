@@ -4,12 +4,12 @@ export const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  //position: fixed;
 
   width: 100%;
-  padding: 1rem 2.5rem;
-  margin-bottom: 1rem;
-  background-color: #f8f8f8;
+  padding: 0.8rem 2rem;
+  background-color: #fdeddc;
+
+  box-shadow: 0 0 4px 0 #0002;
 
   & > div {
     display: inherit;

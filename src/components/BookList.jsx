@@ -1,36 +1,60 @@
-import userContext from "../contexts/UserContext";
 import { GBA_API_KEY } from "../Keys";
 
 import { db } from "../ConfigFirebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
+import notAvailable from "../assets/notAvailable.jpg";
 
 import { StyledBookCard } from "../styles/BookCard.style";
 import { StyledItemList } from "../styles/ItemList.style";
+import { useAuth } from "../contexts/AuthContext";
 
-export default function BookList({ is_large = "true", type }) {
-  const [books, setBooks] = useState(["temp"]);
+export default function BookList({ type, search }) {
+  const [books, setBooks] = useState([]);
   const [fetchError, setFetchError] = useState(null);
-  const { username } = useContext(userContext);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (type === "main") {
-          const URL = `https://www.googleapis.com/books/v1/volumes?q=adventure&filter=ebooks&maxResults=1&key=${GBA_API_KEY}`;
-          const response = await fetch(URL);
+  const auth = useAuth();
+  const username = auth.user;
+
+  if (type === "main") {
+    useEffect(() => {
+      const fetchSearch = async () => {
+        try {
+          let URL = "";
+
+          if (search === "")
+            URL = `https://www.googleapis.com/books/v1/volumes?q=adventure&filter=ebooks&maxResults=12&key=${GBA_API_KEY}`;
+          else URL = `https://www.googleapis.com/books/v1/volumes?q=${search}&filter=ebooks&maxResults=12&key=${GBA_API_KEY}`;
+
+          let response = await fetch(URL);
           if (!response.ok) throw new Error(`Error de solicitud de API: ${response.statusText}, codigo: ${response.status}`);
+          let data = await response.json();
 
-          const data = await response.json();
           setBooks(data.items);
-        } else {
+        } catch (err) {
+          console.log(err.message);
+          setFetchError(err.message);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchSearch();
+    }, [search]);
+  } else {
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
           const usersRef = collection(db, "users");
           const usersData = await getDocs(usersRef);
           const currentUser = usersData.docs.find(doc => doc._document.data.value.mapValue.fields.username.stringValue === username);
           if (currentUser == null) return;
 
-          const book_ids = currentUser._document.data.value.mapValue.fields[type].arrayValue.values.map(value => value.stringValue);
+          const auxBooks = currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
+          if (!auxBooks) return [];
+
+          const book_ids = auxBooks.map(value => value.stringValue);
           if (!book_ids) return [];
 
           const promises = book_ids.map(async book_id => {
@@ -43,52 +67,53 @@ export default function BookList({ is_large = "true", type }) {
           });
 
           setBooks(await Promise.all(promises));
+          setFetchError(null);
+        } catch (err) {
+          console.log(err.message);
+          setFetchError(err.message);
+        } finally {
+          setIsLoading(false);
         }
-        setFetchError(null);
-      } catch (err) {
-        console.log(err.message);
-        setFetchError(err.message);
-      }
-    };
-    //fetchData();
+      };
+      fetchData();
 
-    //Cleanup abort
-    return () => {};
-  }, []);
+      //return () => {};
+    }, []);
+  }
 
   return (
     <>
+      {isLoading && (
+        <h4>
+          Cargando{" "}
+          {(type === "main" && "libros...") ||
+            (type === "bookshelf" && "libros del usuario...") ||
+            (type === "recently_viewed" && "libros recientes...")}
+        </h4>
+      )}
       {fetchError ? (
         <h4>{fetchError}</h4>
-      ) : books.length === 0 ? (
+      ) : !isLoading && books.length === 0 ? (
         <h4>No se encontraron libros</h4>
       ) : (
-        books.length > 0 &&
-        books[0] !== "temp" && (
+        !isLoading &&
+        books.length > 0 && (
           <div>
-            <h2>
-              {(type === "main" && "<Search>") ||
-                (type === "recently_viewed" && "Libros recientes") ||
-                (type === "bookshelf" && "Mis Libros")}
-            </h2>
+            <h2>{(type === "recently_viewed" && "Libros recientes") || (type === "bookshelf" && "Mis Libros")}</h2>
             <StyledItemList>
               {books.map(e => {
                 return (
-                  <Link to={`/explore/${e.id}`} key={e.id}>
-                    <StyledBookCard is_large={is_large}>
+                  <Link className="link" to={`/explore/${e.id}`} key={e.id}>
+                    <StyledBookCard>
                       <div>
                         <img
-                          src={
-                            e.volumeInfo.hasOwnProperty("imageLinks")
-                              ? e.volumeInfo.imageLinks.thumbnail
-                              : "https://bookcart.azurewebsites.net/Upload/Default_image.jpg"
-                          }
+                          src={e.volumeInfo.hasOwnProperty("imageLinks") ? e.volumeInfo.imageLinks.thumbnail : { notAvailable }}
                           alt="image cover"
                         />
                       </div>
                       <div>
-                        <h4>{e.volumeInfo.title}</h4>
-                        {is_large === "true" && <p>{e.volumeInfo.authors}</p>}
+                        <h3>{e.volumeInfo.title}</h3>
+                        <p>{e.volumeInfo.authors}</p>
                       </div>
                     </StyledBookCard>
                   </Link>

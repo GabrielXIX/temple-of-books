@@ -2,21 +2,19 @@ import styled from "styled-components";
 
 export const StyledBookCard = styled.div`
   display: flex;
-  background-color: #f8f8f8;
+  background-color: #fdeddc;
   gap: 1rem;
 
-  ${(props) =>
-    props.is_large === "true"
-      ? "height: 11.5rem;"
-      : "height: 3rem; white-space: nowrap;"};
+  height: 11.5rem;
 
   border-radius: 8px;
   overflow: hidden;
   transition: background-color 0.2s;
 
-  box-shadow: 0 0 5px #e3e3e3;
+  box-shadow: 0 0 4px 0 #0002;
+
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #ffe4ca;
   }
 
   & > div:first-child {
@@ -34,6 +32,9 @@ export const StyledBookCard = styled.div`
   & > div:nth-child(2) {
     padding: 1rem 1rem 1rem 0;
 
+    display: flex;
+    flex-direction: column;
+
     & > h4 {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -45,7 +46,11 @@ export const StyledBookCard = styled.div`
     }
 
     & > p {
-      font-size: 12px;
+      font-size: 14px;
+    }
+
+    & > h3 {
+      margin-bottom: 0.5rem;
     }
   }
 `;

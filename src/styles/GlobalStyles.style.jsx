@@ -9,6 +9,10 @@ export const GlobalStyles = createGlobalStyle`
         font-family: 'Lexend', sans-serif;
     }
 
+    body {
+        background-color: #fff4e8;
+    }
+
     ul {
         list-style-type: none;
     }
@@ -17,7 +21,6 @@ export const GlobalStyles = createGlobalStyle`
         border: none;
 
         cursor: pointer;
-        background-color: transparent;
         font-size: 1rem;
         padding: 0.5rem;
     }
@@ -35,12 +38,32 @@ export const GlobalStyles = createGlobalStyle`
         border: none;
 
         &:focus {
-            outline: 1px #ddd solid;
+            outline: 2px #ffe4ca solid;
         }
     }
 
-    h2 {
-        margin: 0 0 0 2rem;
-        /* line-height: 1; */
+    main {
+        padding: 2rem;
+    }
+
+    h1, h2, h3, h4 {
+        line-height: 1;
+    }
+
+    h4 {
+        margin-bottom: 1rem;
+    }
+    
+    .link {
+        color: #000;
+        padding: 0.5rem;
+    }
+
+    .mainBtn {
+        padding: 0.5rem 1rem;
+        background-color: #FDD7AA;
+        width: fit-content;
+        border-radius: 10px;
+        color: #382f2a;
     }
 `;
