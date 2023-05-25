@@ -46,9 +46,9 @@ export default function LoginForm() {
         <div>
           <h3>Iniciar Sesión</h3>
           <p>Correo Electrónico</p>
-          <input type="text" placeholder="john.doe@gmail.com" {...register("email", { required: true, maxLength: 20 })} />
+          <input type="text" placeholder="john.doe@gmail.com" {...register("email", { required: true, maxLength: 50 })} />
           <p>Contraseña</p>
-          <input type="password" {...register("password", { required: true, maxLength: 20 })} />
+          <input type="password" {...register("password", { required: true, maxLength: 50 })} />
           <button className="mainBtn" type="submit">
             Iniciar Sesión
           </button>

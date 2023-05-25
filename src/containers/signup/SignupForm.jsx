@@ -43,12 +43,12 @@ export default function SignupForm() {
         <div>
           <h3>Registrarse</h3>
           <div>
-            <input type="text" placeholder="Nombre" {...register("name", { required: true, maxLength: 20 })} />
-            <input type="text" placeholder="Correo Electrónico" {...register("username", { required: true, maxLength: 30 })} />
+            <input type="text" placeholder="Nombre" {...register("name", { required: true, maxLength: 50 })} />
+            <input type="text" placeholder="Correo Electrónico" {...register("username", { required: true, maxLength: 50 })} />
           </div>
           <div>
-            <input type="text" placeholder="Nombre de Usuario" {...register("email", { required: true, maxLength: 20 })} />
-            <input type="password" placeholder="Contraseña" {...register("password", { required: true, maxLength: 12 })} />
+            <input type="text" placeholder="Nombre de Usuario" {...register("email", { required: true, maxLength: 50 })} />
+            <input type="password" placeholder="Contraseña" {...register("password", { required: true, maxLength: 50 })} />
           </div>
           <button className="mainBtn" type="submit">
             Registrarse
