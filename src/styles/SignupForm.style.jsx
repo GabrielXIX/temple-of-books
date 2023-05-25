@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledSignupForm = styled.div`
-  //width: 28rem;
   background-color: #ffe4ca;
   border-radius: 10px;
   box-shadow: 0 0 4px 0 #0002;
@@ -21,8 +20,6 @@ export const StyledSignupForm = styled.div`
   & > div:nth-child(2) {
     display: flex;
     flex-direction: column;
-    //align-items: center;
-    //gap: 1rem;
     padding: 1rem 3rem;
 
     & > h3 {

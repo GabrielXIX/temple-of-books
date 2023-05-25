@@ -11,9 +11,6 @@ import { StyledBookHeader, StyledBookDetails } from "../styles/BookInfo.style";
 import { StyledReviewModal } from "../styles/ReviewModal.style";
 import { useAuth } from "../contexts/AuthContext";
 
-//lZN5DQAAQBAJ
-//max 230 characters in review
-
 export default function BookInfo({ bookId }) {
   const URL = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${GBA_API_KEY}`;
   const [bookDisplayed, setBookDisplayed] = useState({

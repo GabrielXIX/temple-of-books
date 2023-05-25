@@ -39,7 +39,7 @@ export const StyledBookCard = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 3; /* number of lines to show */
+      -webkit-line-clamp: 3;
       line-clamp: 3;
       -webkit-box-orient: vertical;
       margin-bottom: 0.5rem;

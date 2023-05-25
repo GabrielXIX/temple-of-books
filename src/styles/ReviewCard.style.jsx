@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const StyledReviewCard = styled.div`
   background-color: #fdeddc;
-  //height: 11.5rem;
   padding: 1rem;
   position: relative;
 

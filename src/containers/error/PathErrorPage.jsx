@@ -1,3 +1,3 @@
 export default function PathErrorPage() {
-  return <div>ErrorPage</div>;
+  return <div>404 Not Found</div>;
 }

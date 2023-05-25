@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import landingBg from "../assets/landingBg.jpg";
-//https://www.pxfuel.com/en/desktop-wallpaper-oxjae/download/1920x1080
+//https://www.pxfuel.com/en/desktop-wallpaper-oxjae/download/1920x1080 - imagen fondo
 
 export const StyledLandingPage = styled.div`
   width: 100vw;

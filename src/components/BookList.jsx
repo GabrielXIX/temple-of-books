@@ -1,7 +1,7 @@
 import { GBA_API_KEY } from "../Keys";
 
 import { db } from "../ConfigFirebase";
-import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import notAvailable from "../assets/notAvailable.jpg";

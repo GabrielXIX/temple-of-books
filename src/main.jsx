@@ -1,9 +1,3 @@
-/*
-  Project Import Structure:
-    components/objects/constants/functions
-    packages/hooks
-    styles
-*/
 import App from "./App";
 import ExplorePage from "./containers/ExplorePage";
 import BookTemplatePage from "./containers/BookTemplatePage";

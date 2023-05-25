@@ -15,8 +15,6 @@ export const StyledLoginForm = styled.div`
   & > div {
     display: flex;
     flex-direction: column;
-    //align-items: center;
-    //gap: 1rem;
     padding: 1rem 3rem;
 
     & p {

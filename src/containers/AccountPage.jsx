@@ -3,7 +3,7 @@ import { useAuth } from "../contexts/AuthContext.jsx";
 
 import { useNavigate } from "react-router-dom";
 import { db } from "../ConfigFirebase";
-import { collection, addDoc, updateDoc, doc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 import { StyledPageStructure } from "../styles/PageStructure.style.jsx";
 import { StyledUserInfo } from "../styles/UserInfo.jsx";

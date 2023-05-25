@@ -45,12 +45,12 @@ export default function LoginForm() {
         <img src={LoginLogo} alt="Login Logo" />
         <div>
           <h3>Iniciar Sesión</h3>
-          <p>Correo Electronico</p>
+          <p>Correo Electrónico</p>
           <input type="text" placeholder="john.doe@gmail.com" {...register("email", { required: true, maxLength: 20 })} />
           <p>Contraseña</p>
           <input type="password" {...register("password", { required: true, maxLength: 20 })} />
           <button className="mainBtn" type="submit">
-            Iniciar Sesion
+            Iniciar Sesión
           </button>
         </div>
       </StyledLoginForm>
