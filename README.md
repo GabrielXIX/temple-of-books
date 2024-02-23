@@ -1,4 +1,3 @@
-# Equipo 19
+# Temple of Books
 
-- Cuevas Martinez Adrian de Jesus 19211623
-- Dueñas Nuñez Alan Gabriel 19211630
+Aplicacion web para buscar y guardar libros (utilizando el API de google books), asi como crear reseñas
