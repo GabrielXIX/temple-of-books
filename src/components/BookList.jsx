@@ -1,5 +1,3 @@
-import { GBA_API_KEY } from "../Keys";
-
 import { db } from "../ConfigFirebase";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
@@ -25,11 +23,19 @@ export default function BookList({ type, search }) {
           let URL = "";
 
           if (search === "")
-            URL = `https://www.googleapis.com/books/v1/volumes?q=adventure&filter=ebooks&maxResults=12&key=${GBA_API_KEY}`;
-          else URL = `https://www.googleapis.com/books/v1/volumes?q=${search}&filter=ebooks&maxResults=12&key=${GBA_API_KEY}`;
+            URL = `https://www.googleapis.com/books/v1/volumes?q=adventure&filter=ebooks&maxResults=12&key=${
+              import.meta.env.VITE_GBA_API_KEY
+            }`;
+          else
+            URL = `https://www.googleapis.com/books/v1/volumes?q=${search}&filter=ebooks&maxResults=12&key=${
+              import.meta.env.VITE_GBA_API_KEY
+            }`;
 
           let response = await fetch(URL);
-          if (!response.ok) throw new Error(`Error de solicitud de API: ${response.statusText}, codigo: ${response.status}`);
+          if (!response.ok)
+            throw new Error(
+              `Error de solicitud de API: ${response.statusText}, codigo: ${response.status}`
+            );
           let data = await response.json();
 
           setBooks(data.items);
@@ -48,19 +54,27 @@ export default function BookList({ type, search }) {
         try {
           const usersRef = collection(db, "users");
           const usersData = await getDocs(usersRef);
-          const currentUser = usersData.docs.find(doc => doc._document.data.value.mapValue.fields.username.stringValue === username);
+          const currentUser = usersData.docs.find(
+            doc => doc._document.data.value.mapValue.fields.username.stringValue === username
+          );
           if (currentUser == null) return;
 
-          const auxBooks = currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
+          const auxBooks =
+            currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
           if (!auxBooks) return [];
 
           const book_ids = auxBooks.map(value => value.stringValue);
           if (!book_ids) return [];
 
           const promises = book_ids.map(async book_id => {
-            const URL = `https://www.googleapis.com/books/v1/volumes/${book_id}?key=${GBA_API_KEY}`;
+            const URL = `https://www.googleapis.com/books/v1/volumes/${book_id}?key=${
+              import.meta.env.VITE_GBA_API_KEY
+            }`;
             const response = await fetch(URL);
-            if (!response.ok) throw new Error(`Error de solicitud de API: ${response.statusText}, codigo: ${response.status}`);
+            if (!response.ok)
+              throw new Error(
+                `Error de solicitud de API: ${response.statusText}, codigo: ${response.status}`
+              );
 
             const data = await response.json();
             return data;
@@ -99,7 +113,10 @@ export default function BookList({ type, search }) {
         !isLoading &&
         books.length > 0 && (
           <div>
-            <h2>{(type === "recently_viewed" && "Libros recientes") || (type === "bookshelf" && "Mis Libros")}</h2>
+            <h2>
+              {(type === "recently_viewed" && "Libros recientes") ||
+                (type === "bookshelf" && "Mis Libros")}
+            </h2>
             <StyledItemList>
               {books.map(e => {
                 return (
@@ -107,7 +124,11 @@ export default function BookList({ type, search }) {
                     <StyledBookCard>
                       <div>
                         <img
-                          src={e.volumeInfo.hasOwnProperty("imageLinks") ? e.volumeInfo.imageLinks.thumbnail : { notAvailable }}
+                          src={
+                            e.volumeInfo.hasOwnProperty("imageLinks")
+                              ? e.volumeInfo.imageLinks.thumbnail
+                              : { notAvailable }
+                          }
                           alt="image cover"
                         />
                       </div>

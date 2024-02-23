@@ -1,4 +1,3 @@
-import { GBA_API_KEY } from "../Keys";
 import notAvailable from "../assets/notAvailable.jpg";
 
 import { useEffect, useState } from "react";
@@ -12,7 +11,9 @@ import { StyledReviewModal } from "../styles/ReviewModal.style";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function BookInfo({ bookId }) {
-  const URL = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${GBA_API_KEY}`;
+  const URL = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${
+    import.meta.env.VITE_GBA_API_KEY
+  }`;
   const [bookDisplayed, setBookDisplayed] = useState({
     title: "Titutlo",
     authors: ["Autores"],
@@ -36,7 +37,10 @@ export default function BookInfo({ bookId }) {
     const fetchBookData = async () => {
       try {
         const bookFetched = await fetch(URL);
-        if (!bookFetched.ok) throw new Error(`Error de solicitud de API: ${bookFetched.statusText}, codigo: ${bookFetched.status}`);
+        if (!bookFetched.ok)
+          throw new Error(
+            `Error de solicitud de API: ${bookFetched.statusText}, codigo: ${bookFetched.status}`
+          );
 
         const data = await bookFetched.json();
         console.log(data);
@@ -55,10 +59,13 @@ export default function BookInfo({ bookId }) {
 
         const usersRef = collection(db, "users");
         const usersData = await getDocs(usersRef);
-        const currentUser = usersData.docs.find(doc => doc._document.data.value.mapValue.fields.username.stringValue === auth.user);
+        const currentUser = usersData.docs.find(
+          doc => doc._document.data.value.mapValue.fields.username.stringValue === auth.user
+        );
         if (!currentUser) return;
 
-        let userBookshelf = currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
+        let userBookshelf =
+          currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
 
         if (!userBookshelf) {
           setIsInBookshelf(false);
@@ -108,12 +115,15 @@ export default function BookInfo({ bookId }) {
     try {
       const usersRef = collection(db, "users");
       const usersData = await getDocs(usersRef);
-      const currentUser = usersData.docs.find(doc => doc._document.data.value.mapValue.fields.username.stringValue === auth.user);
+      const currentUser = usersData.docs.find(
+        doc => doc._document.data.value.mapValue.fields.username.stringValue === auth.user
+      );
       if (!currentUser) return;
 
       const userDoc = doc(db, "users", currentUser.id);
 
-      let userBookshelf = currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
+      let userBookshelf =
+        currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
 
       if (!userBookshelf) userBookshelf = [];
       else if (userBookshelf.length === 10) {
@@ -146,12 +156,15 @@ export default function BookInfo({ bookId }) {
   async function removeBook() {
     const usersRef = collection(db, "users");
     const usersData = await getDocs(usersRef);
-    const currentUser = usersData.docs.find(doc => doc._document.data.value.mapValue.fields.username.stringValue === auth.user);
+    const currentUser = usersData.docs.find(
+      doc => doc._document.data.value.mapValue.fields.username.stringValue === auth.user
+    );
     if (!currentUser) return;
 
     const userDoc = doc(db, "users", currentUser.id);
 
-    let userBookshelf = currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
+    let userBookshelf =
+      currentUser._document.data.value.mapValue.fields.bookshelf.arrayValue.values;
 
     userBookshelf = userBookshelf.map(value => value.stringValue);
 
